@@ -8,14 +8,15 @@ export default (initialTodos) => {
     todos,
     getTodos: () => {
       api.getTodos().then((data) => {
-        console.log(data);
         setTodos(data);
       });
     },
     addTodo: (newTask) => {
       const newTodo = { task: newTask, completed: false };
       api.addTodo(newTodo).then((res) => {
-        setTodos([...todos, res.data]);
+        if (res.status === 201) {
+          setTodos([...todos, res.data]);
+        }
       });
     },
     removeTodo: (todo) => {
@@ -28,18 +29,22 @@ export default (initialTodos) => {
     },
     toggleTodo: (todo) => {
       api.editTodo({ ...todo, completed: !todo.completed }).then((res) => {
-        const updatedTodos = todos.map((t) =>
-          t._id === todo._id ? { ...t, completed: res.data.completed } : t
-        );
-        setTodos(updatedTodos);
+        if (res.status === 200) {
+          const updatedTodos = todos.map((t) =>
+            t._id === todo._id ? { ...t, completed: res.data.completed } : t
+          );
+          setTodos(updatedTodos);
+        }
       });
     },
     editTodo: (todo, newTask) => {
       api.editTodo({ ...todo, task: newTask, completed: false }).then((res) => {
-        const updatedTodos = todos.map((t) =>
-          t._id === todo._id ? { ...res.data, task: res.data.task } : t
-        );
-        setTodos(updatedTodos);
+        if (res.status === 200) {
+          const updatedTodos = todos.map((t) =>
+            t._id === todo._id ? { ...res.data, task: res.data.task } : t
+          );
+          setTodos(updatedTodos);
+        }
       });
     },
   };
