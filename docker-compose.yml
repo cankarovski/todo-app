@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+  todoapi:
+    container_name: "todo-api"
+    restart: always
+    build: ./todo-api
+    networks:
+      - todo-network
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/code
+    depends_on:
+      - mongo
+
+  todoapp:
+    container_name: "todo-app"
+    restart: always
+    build: ./todo-app
+    networks:
+      - todo-network
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/code
+
+  mongo:
+    container_name: "todo-db"
+    image: mongo
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - todo-network
+    ports:
+      - 27017:27017
+
+networks:
+  todo-network:
+    driver: bridge
+
+volumes:
+  dbdata:
