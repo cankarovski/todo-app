@@ -1,0 +1,24 @@
+.TodoForm {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: whitesmoke;
+  margin: 5px 0;
+}
+
+.TodoForm-input {
+  height: 100%;
+  order: 1;
+  flex: 1 1 auto;
+  background-color: whitesmoke;
+}
+button.TodoForm-submit {
+  order: 2;
+  flex: 1 0 auto;
+  background-color: lightgreen;
+  color: white;
+}
+button.TodoForm-submit:hover {
+  background-color: limegreen;
+}
