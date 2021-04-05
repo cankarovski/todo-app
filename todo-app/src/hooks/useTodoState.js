@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../api/api";
 
-export default (initialTodos) => {
+function useTodoState(initialTodos) {
   const [todos, setTodos] = useState(initialTodos);
 
   return {
@@ -48,4 +48,6 @@ export default (initialTodos) => {
       });
     },
   };
-};
+}
+
+export default useTodoState;
